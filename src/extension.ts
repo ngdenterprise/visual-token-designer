@@ -18,6 +18,7 @@ import { TokenDefinitionExplorer } from "./tokenDefinitionExplorer";
 import { TokenFormulaExplorer } from "./tokenFormulaExplorer";
 import { TokenTaxonomy } from "./tokenTaxonomy";
 import { TtfFileSystemConnection } from "./ttfFileSystemConnection";
+import { writeTemplateDefinition } from "./codeGenerator";
 
 const StatusBarPrefix = "$(debug-disconnect) TTF: ";
 
@@ -30,11 +31,14 @@ export async function activate(context: vscode.ExtensionContext) {
     panelReloadEvent = hotReloadWatcher.reload;
   }
 
+  const resourceFolder = path.join(
+    context.extensionPath,
+    "resources");
+
   const newSandboxConnection = async () =>
     await TtfFileSystemConnection.create(
       path.join(
-        context.extensionPath,
-        "resources",
+        resourceFolder,
         "ttf_snapshot",
         "ttf_taxonomy.bin"
       )
@@ -134,15 +138,12 @@ export async function activate(context: vscode.ExtensionContext) {
         )
       );
 
-      const too = definition?.toObject();
-      const bizdescript = too.artifact?.artifactDefinition?.businessDescription;
+      var code = await writeTemplateDefinition(definition, ttfConnection, resourceFolder);
 
       await vscode.workspace.openTextDocument({
-        content: bizdescript,
+        content: code,
         language: 'csharp'
       });
-
-      // vscode.window.showInformationMessage(bizdescript ?? "");
     }
   );
   

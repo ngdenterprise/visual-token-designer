@@ -1,0 +1,7 @@
+    /// <summary>
+    /// {{it.description | safe}}
+    /// </summary>
+    public static object {{it.name}}()
+    {
+        throw new NotImplementedException();
+    }

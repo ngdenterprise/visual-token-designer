@@ -1,0 +1,5 @@
+    /// {{it.name}}
+    /// {{it.valueDescription | safe}}
+{{@each(it.propertyInvocationsList) => inv}}
+{{@include('invocation', inv) /}}
+{{/each}}

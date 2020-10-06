@@ -1,0 +1,30 @@
+/// {{it.artifact.name}}.cs
+/// <summary>
+/// {{it.artifact.artifactDefinition.businessDescription | safe}}
+/// </summary>
+
+using Neo.SmartContract.Framework;
+
+public class {{it.artifact.name}} : SmartContract
+{
+    // Base Token Behavior
+    public static string Name() => throw new NotImplementedException();
+    public static string Symbol() => throw new NotImplementedException();
+    public static object TotalSupply() => throw new NotImplementedException();
+    public static object GetBalance(object account) => throw new NotImplementedException();
+
+{{@async behaviors(it) => behavior}}
+    // {{behavior.artifact.name}} Behavior
+{{@each(behavior.invocationsList) => inv}}
+{{-@include('invocation', inv) /}}
+{{/each}}
+
+{{@each(behavior.propertiesList) => prop}}
+{{-@include('property', prop) /}}
+{{/each}}
+{{/behaviors}}
+
+{{@async properties(it) => prop}}
+{{-@include('property', prop) /}}
+{{/properties}}
+}

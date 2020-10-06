@@ -86,6 +86,11 @@
         "category": "Token Taxonomy Framework"
       },
       {
+        "command": "visual-token-designer.generateCode",
+        "title": "Generate token code",
+        "category": "Token Taxonomy Framework"
+      },
+      {
         "command": "visual-token-designer.createBehavior",
         "title": "Create Behavior",
         "category": "Token Taxonomy Framework"
@@ -192,6 +197,10 @@
         {
           "command": "visual-token-designer.deleteArtifact",
           "when": "view == visual-token-designer.tokenFormulaExplorer"
+        },
+        {
+          "command": "visual-token-designer.generateCode",
+          "when": "view == visual-token-designer.tokenDefinitionExplorer"
         },
         {
           "command": "visual-token-designer.deleteArtifact",

@@ -3,6 +3,7 @@ import * as path from "path";
 import * as ttfArtifact from "./ttf/artifact_pb";
 import * as ttfClient from "./ttf/service_grpc_pb";
 import * as vscode from "vscode";
+import * as ttfCore from "./ttf/core_pb";
 
 import { BehaviorPanel } from "./behaviorPanel";
 import { BehaviorGroupPanel } from "./behaviorGroupPanel";
@@ -121,6 +122,30 @@ export async function activate(context: vscode.ExtensionContext) {
     }
   );
 
+  const generateCodeCommand = vscode.commands.registerCommand(
+    "visual-token-designer.generateCode",
+    async (commandContext) => {
+      const existingArtifactSymbol = new ttfArtifact.ArtifactSymbol();
+      existingArtifactSymbol.setId(commandContext?.id);
+      const definition: ttfCore.TemplateDefinition = await new Promise((resolve, reject) =>
+        ttfConnection.getTemplateDefinitionArtifact(
+          existingArtifactSymbol,
+          (error, response) => (error && reject(error)) || resolve(response)
+        )
+      );
+
+      const too = definition?.toObject();
+      const bizdescript = too.artifact?.artifactDefinition?.businessDescription;
+
+      await vscode.workspace.openTextDocument({
+        content: bizdescript,
+        language: 'csharp'
+      });
+
+      // vscode.window.showInformationMessage(bizdescript ?? "");
+    }
+  );
+  
   const createTokenDefinitionCommand = vscode.commands.registerCommand(
     "visual-token-designer.createTokenDefinition",
     async (commandContext) => {
@@ -342,6 +367,7 @@ export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(createBehaviorGroupCommand);
   context.subscriptions.push(createPropertySetCommand);
   context.subscriptions.push(openTokenFormulaCommand);
+  context.subscriptions.push(generateCodeCommand);
   context.subscriptions.push(createTokenDefinitionCommand);
   context.subscriptions.push(deleteArtifactCommand);
   context.subscriptions.push(openTokenDefinitionCommand);

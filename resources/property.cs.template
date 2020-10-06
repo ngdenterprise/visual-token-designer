@@ -1,4 +1,4 @@
-    /// {{it.name}}
+    /// {{it.name}} Property
     /// {{it.valueDescription | safe}}
 {{@each(it.propertyInvocationsList) => inv}}
 {{@include('invocation', inv) /}}

@@ -13,7 +13,13 @@ will not have contiguous patch numbers. Initial major and minor releases will be
 in this file without a patch number. Patch version will be included for bug fix releases, but
 may not exactly match a publicly released version.
 
-## Unreleased
+## [1.0.19] - 2020-11-09
+
+### Fixed
+
+- Updated GRPC for Electron v9.3.3.
+
+## [1.0.18] - 2020-09-30
 
 ### Fixed
 

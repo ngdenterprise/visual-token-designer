@@ -15,7 +15,9 @@ may not exactly match a publicly released version.
 
 ## Unreleased
 
-...
+### Fixed
+
+- Updated GRPC for Electron v9.3.3.
 
 ## [1.0.18] - 2020-09-30
 
